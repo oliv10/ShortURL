@@ -1,12 +1,10 @@
 from .objects import URLKey
-import redis
+from redis import Redis
 from pydantic import HttpUrl
-
-DB = redis.Redis(host='redis', port=6379, decode_responses=True)
 
 class database:
 
-    def __init__(self, db:redis.Redis = DB):
+    def __init__(self, db:Redis = Redis(host='redis', port=6379, decode_responses=True)):
         self.db = db
         self.db.set("None", "/")
 
