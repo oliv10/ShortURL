@@ -1,25 +1,30 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Package Name',
+    name='ShortURL',
     version='0.1.0',
-    url='',
-    author='Author',
+    url='https://github.com/oliv10/ShortURL',
+    author='Oliver Scotten',
     author_email='',
-    description='',
+    description='Simple Webpage using FastAPI and Redis to create a short URL to forward to another site.',
     packages=find_packages(exclude=["tests", ".github"]),
     install_requires=[
-
+        "uvicorn~=0.27.1",
+        "fastapi~=0.110.0",
+        "redis~=5.0.2"
     ],
     extras_require={
         "development": [
             "pytest",
-            "pipreqs"
+            "pipreqs",
+            "fakeredis",
+            "httpx"
         ],
     },
     entry_points={
         "console_scripts": [
-            "package = src.__main__:run",
+            "shurl = shorturl.__main__:run",
+            "shorturl = shorturl.__main__:run",
         ],
     },
 )
