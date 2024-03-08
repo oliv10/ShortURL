@@ -6,7 +6,8 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "python3 -m pip install ."
+            "command": "python3 -m pip install .",
+            "problemMatcher": []
         },
         {
             "label": "test",
@@ -21,7 +22,13 @@
         {
             "label": "pipreqs",
             "type": "shell",
-            "command": "pipreqs ./src --savepath ./requirements.txt --mode compat --force",
+            "command": "pipreqs ./project --savepath ./requirements.txt --mode compat --force",
+            "problemMatcher": []
+        },
+        {
+            "label": "debug",
+            "type": "shell",
+            "command": "uvicorn shorturl.app:app --port 5000 --reload",
             "problemMatcher": []
         }
     ]
