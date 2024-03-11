@@ -16,11 +16,15 @@ def run():
     # PARSER.add_argument('--dbport', nargs='?', default=6379, type=int, help='redis database host listening port')
 
     PARSER.add_argument('--reload', action='store_true', help=argparse.SUPPRESS)
+    PARSER.add_argument('--test', action='store_true', help=argparse.SUPPRESS)
 
     parsedArguments = PARSER.parse_args()
 
     HOST = parsedArguments.host
     PORT = parsedArguments.port
+    
     RELOAD = parsedArguments.reload
+    TEST = parsedArguments.test
 
-    uvicorn.run("shorturl.app:app", host=HOST, port=PORT, log_level="info", reload=RELOAD)
+    if not TEST:
+        uvicorn.run("shorturl.app:app", host=HOST, port=PORT, log_level="info", reload=RELOAD)
