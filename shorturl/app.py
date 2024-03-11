@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from shorturl.database import URL, Database, objects
+from shorturl.database import Database, URL, URLKey
 
-app = FastAPI()
-DB = Database()
+app: FastAPI = FastAPI()
+database: Database = Database()
 
 # @app.get("/")
 # def get_index():
@@ -11,9 +11,9 @@ DB = Database()
 #     return ["one", 2, "three"]
 
 @app.get("/{key}", response_class=RedirectResponse)
-def redirect_url(key: str) -> RedirectResponse:
-    return DB.get_url(key=key)
+async def redirect_url(key: str) -> RedirectResponse:
+    return RedirectResponse(database.get_url(key=key))
 
 @app.post("/")
-def get_short_url(url: URL) -> objects.URLKey:
-    return DB.create_url(url=url.url, ex=url.ex)
+async def get_short_url(url: URL) -> URLKey:
+    return database.create_url(url=url.url, ex=url.ex)
