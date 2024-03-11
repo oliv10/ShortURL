@@ -8,15 +8,15 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - shorturl/
-      - tests/
-      - .github/workflows/pytest.yml
+      - /shorturl/
+      - /tests/
+      - /.github/workflows/pytest.yml
   pull_request:
     branches: [ "main" ]
     paths:
-      - shorturl/
-      - tests/
-      - .github/workflows/pytest.yml
+      - /shorturl/
+      - /tests/
+      - /.github/workflows/pytest.yml
 
 jobs:
   build:
