@@ -8,7 +8,7 @@ class database:
         self.db = db
         self.db.set("None", "/")
 
-    def get_url(self, key: str) -> str:
+    def get_url(self, key: str) -> str | None:
         return self.db.get(key)
 
     def create_url(self, url: HttpUrl, ex: int) -> URLKey:
