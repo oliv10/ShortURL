@@ -27,6 +27,10 @@ jobs:
       matrix:
         python-version: ["3.x", "3.9", "3.10", "3.11", "3.12"]
 
+    services:
+      redis:
+        image: redis/redis-stack-server:7.2.0-v9
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
