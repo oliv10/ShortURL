@@ -9,4 +9,4 @@ class URL:
 
 @dataclass
 class URLKey(URL):
-    key: str = field(default_factory=lambda: ''.join(random.choices(string.ascii_letters, k=8)))
+    key: str = field(default_factory=lambda: ''.join(random.choices(string.ascii_letters+string.digits, k=8)))
