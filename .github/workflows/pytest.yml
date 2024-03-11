@@ -4,19 +4,19 @@
 name: PyTest
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
     paths:
-      - /shorturl/
-      - /tests/
-      - /.github/workflows/pytest.yml
+      - '**.py'
+      - .github/workflows/pytest.yml
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
     paths:
-      - /shorturl/
-      - /tests/
+      - '**.py'
       - /.github/workflows/pytest.yml
+  workflow_dispatch:
 
 jobs:
   build:
