@@ -1,4 +1,4 @@
-[![PyTest](https://github.com/oliv10/ShortURL/actions/workflows/pytest.yml/badge.svg)](https://github.com/oliv10/ShortURL/actions/workflows/pytest.yml)
+[![PyTest](https://github.com/oliv10/ShortURL/actions/workflows/pytest.yml/badge.svg?branch=main)](https://github.com/oliv10/ShortURL/actions/workflows/pytest.yml)
 
 # ShortURL
 
