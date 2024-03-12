@@ -45,6 +45,8 @@ jobs:
         python -m pip install flake8 pytest
         python -m pip install .[development]
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Add Redis to /etc/hosts
+      run: echo "127.0.0.1 redis" | sudo tee -a /etc/hosts
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
