@@ -26,6 +26,8 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.x", "3.10", "3.11", "3.12"]
+    permissions:
+      pull-requests: write
 
     services:
       redis:
@@ -55,7 +57,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --junitxml=pytest.xml --cov-report=term-missing:skip-covered --cov=app tests/ | tee pytest-coverage.txt
+        pytest --junitxml=pytest.xml | tee pytest-coverage.txt
     - name: Comment Results
       if: github.event_name == 'pull_request'
       uses: MishaKav/pytest-coverage-comment@main
