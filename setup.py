@@ -9,7 +9,7 @@ setup(
     description='Simple Webpage using FastAPI and Redis to create a short URL to forward to another site.',
     packages=find_packages(exclude=["tests", ".github"]),
     install_requires=[
-        "uvicorn~=0.27.1",
+        "uvicorn>=0.27.1,<0.29.0",
         "fastapi~=0.110.0",
         "redis~=5.0.2"
     ],
