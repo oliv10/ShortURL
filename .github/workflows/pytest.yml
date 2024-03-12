@@ -55,21 +55,24 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
+    - name: Test with PyTest
       run: |
-        pytest --junitxml=/tmp/pytest.xml --cov-report "xml:/tmp/coverage.xml" --cov=shorturl tests/
-    - name: Comment Results
-      if: github.event_name == 'pull_request'
-      uses: MishaKav/pytest-coverage-comment@main
-      with:
-        pytest-xml-coverage-path: /tmp/coverage.xml
-        junitxml-path: /tmp/pytest.xml
-        unique-id-for-comment: ${{ matrix.python-version }}
-        title: Python ${{ matrix.python-version }} Coverage Report
-        badge-title: Python ${{ matrix.python-version }} Coverage
-        hide-badge: false
-        hide-report: false
-        create-new-comment: false
-        hide-comment: false
-        report-only-changed-files: false
-        remove-link-from-badge: false
+          pytest
+    # - name: Test with pytest
+    #   run: |
+    #     pytest --junitxml=/tmp/pytest.xml --cov-report "xml:/tmp/coverage.xml" --cov=shorturl tests/
+    # - name: Comment Results
+    #   if: github.event_name == 'pull_request'
+    #   uses: MishaKav/pytest-coverage-comment@main
+    #   with:
+    #     pytest-xml-coverage-path: /tmp/coverage.xml
+    #     junitxml-path: /tmp/pytest.xml
+    #     unique-id-for-comment: ${{ matrix.python-version }}
+    #     title: Python ${{ matrix.python-version }} Coverage Report
+    #     badge-title: Python ${{ matrix.python-version }} Coverage
+    #     hide-badge: false
+    #     hide-report: false
+    #     create-new-comment: false
+    #     hide-comment: false
+    #     report-only-changed-files: false
+    #     remove-link-from-badge: false
