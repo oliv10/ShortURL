@@ -55,11 +55,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --junitxml=/tmp/pytest.xml | tee /tmp/pytest-coverage.txt
+        pytest --junitxml=/tmp/pytest.xml
     - name: Comment Results
       if: github.event_name == 'pull_request'
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: /tmp/pytest-coverage.txt
+        # pytest-coverage-path: /tmp/pytest-coverage.txt
         junitxml-path: /tmp/pytest.xml
         unique-id-for-comment: ${{ matrix.python-version }}
