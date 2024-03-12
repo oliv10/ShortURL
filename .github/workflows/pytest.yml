@@ -57,12 +57,13 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest --cov-report "xml:/tmp/coverage.xml" --cov=shorturl tests/
+        pytest --junitxml=/tmp/pytest.xml --cov-report "xml:/tmp/coverage.xml" --cov=shorturl tests/
     - name: Comment Results
       if: github.event_name == 'pull_request'
       uses: MishaKav/pytest-coverage-comment@main
       with:
         pytest-xml-coverage-path: /tmp/coverage.xml
+        junitxml-path: /tmp/pytest.xml
         unique-id-for-comment: ${{ matrix.python-version }}
         title: Python ${{ matrix.python-version }} Coverage Report
         badge-title: Python ${{ matrix.python-version }} Coverage
