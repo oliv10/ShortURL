@@ -2,4 +2,6 @@
 
 # ShortURL
 
-Inspired by [this](https://realpython.com/build-a-python-url-shortener-with-fastapi/).
+A simple webpage using FastAPI and Redis to create a short URL to forward to another site.
+
+Inspired by [this](https://realpython.com/build-a-python-url-shortener-with-fastapi/). But not followed in the slightest.
