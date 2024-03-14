@@ -11,4 +11,4 @@ class URL:
 
 @dataclass
 class URLKey(URL):
-    key: str = Field(default_factory=lambda: ''.join(random.choices(string.ascii_letters + string.digits, k=KEYLEN)), min_length=KEYLEN, max_length=KEYLEN)
+    key: str = field(default_factory=lambda: ''.join(random.choices(string.ascii_letters+string.digits, k=KEYLEN)), metadata={"min_length": KEYLEN, "max_length": KEYLEN})
