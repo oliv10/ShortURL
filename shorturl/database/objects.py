@@ -1,8 +1,9 @@
 import string, random
 from dataclasses import dataclass, field
 from pydantic import HttpUrl, Field
+from shorturl.settings import Settings
 
-KEYLEN = 8
+settings = Settings()
 
 @dataclass
 class URL:
@@ -11,4 +12,4 @@ class URL:
 
 @dataclass
 class URLKey(URL):
-    key: str = field(default_factory=lambda: ''.join(random.choices(string.ascii_letters+string.digits, k=KEYLEN)), metadata={"min_length": KEYLEN, "max_length": KEYLEN})
+    key: str = field(default_factory=lambda: ''.join(random.choices(string.ascii_letters+string.digits, k=settings.KEYLEN)), metadata={"min_length": settings.KEYLEN, "max_length": settings.KEYLEN})
