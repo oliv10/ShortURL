@@ -6,7 +6,7 @@ import time
 
 @pytest.fixture
 def DB():
-    return Database(FakeRedis(decode_responses=True))
+    return Database(redis=FakeRedis(decode_responses=True))
 
 def test_create_url(DB: Database):
     item = DB.create_url("https://example.com", 1)
