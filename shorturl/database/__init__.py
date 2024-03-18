@@ -1,2 +1,2 @@
 from .objects import URL, URLKey
-from .db import database as Database
+from .database import Database
