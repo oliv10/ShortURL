@@ -1,9 +1,11 @@
 from fastapi import FastAPI
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, Response
 from shorturl.database import Database, URL, URLKey
+from shorturl.settings import Settings
 
+settings = Settings()
+database: Database = Database(host=settings.DBHOST, port=settings.DBPORT, password=settings.DBPASS)
 app: FastAPI = FastAPI()
-database: Database = Database()
 
 # @app.get("/")
 # def get_index():
@@ -12,8 +14,12 @@ database: Database = Database()
 
 @app.get("/{key}", response_class=RedirectResponse)
 async def redirect_url(key: str) -> RedirectResponse:
-    return RedirectResponse(database.get_url(key=key))
+    url = database.get_url(key=key)
+    if url:
+        return RedirectResponse(url)
+    else:
+        return Response(None, 404)
 
-@app.post("/")
-async def get_short_url(url: URL) -> URLKey:
+@app.post("/api/v1/create_key", status_code=201)
+async def create_key(url: URL) -> URLKey:
     return database.create_url(url=url.url, ex=url.ex)
