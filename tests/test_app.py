@@ -18,11 +18,11 @@ def test_get_short_url(client: TestClient):
             "ex": 10
             }
             """
-    response = client.post("/", data=good_body)
+    response = client.post("/api/v1/create_key", data=good_body)
     dict_response = json.loads(response.content)
     assert dict_response["url"] == "https://example.com/"
     assert dict_response["ex"] == 10
-    assert response.status_code == 200
+    assert response.status_code == 201
 
     bad_body = """
             {
@@ -30,7 +30,7 @@ def test_get_short_url(client: TestClient):
             "ex": "ten"
             }
             """
-    response = client.post("/", data=bad_body)
+    response = client.post("/api/v1/create_key", data=bad_body)
     dict_response = json.loads(response.content)
     assert dict_response["detail"][0]["ctx"]["error"] == "relative URL without a base"
     assert dict_response["detail"][1]["msg"] == "Input should be a valid integer, unable to parse string as an integer"
