@@ -1,24 +1,32 @@
 import pytest
 from fakeredis import FakeRedis
-from shorturl.database import Database
-from shorturl.database import URL, URLKey
+from shorturl.database import Database, URLKey
 import time
 
 @pytest.fixture
 def DB():
     return Database(redis=FakeRedis(decode_responses=True))
 
-def test_create_url(DB: Database):
-    item = DB.create_url("https://example.com", 1)
+def test_create_url(DB):
+    url = "https://example.com"
+    item = DB.create_url(url, 1)
     assert isinstance(item, URLKey)
     assert item.ex == 1
-    assert item.url == "https://example.com"
+    assert item.url == url
 
-def test_get_url(DB: Database):
-    item = DB.create_url("https://example.com", 1)
-    assert isinstance(DB.get_url(item.key), str)
-    assert DB.get_url(item.key) == "https://example.com"
+def test_get_url(DB):
+    url = "https://example.com"
+    item = DB.create_url(url, 1)
+    assert DB.get_url(item.key) == url
+
+def test_expired_url(DB):
+    url = "https://example.com"
+    item = DB.create_url(url, 1)
     time.sleep(1)
-    assert DB.get_url("failed") == None
+    assert DB.get_url(item.key) is None
+
+def test_nonexistent_key(DB):
+    assert DB.get_url("nonexistent_key") is None
+
+def test_none_key(DB):
     assert DB.get_url("None") == "/"
-    assert DB.get_url(item.key) == None
