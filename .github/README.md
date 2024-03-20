@@ -6,6 +6,18 @@ A simple webpage using FastAPI and Redis to create a short URL to forward to ano
 
 Inspired by [this](https://realpython.com/build-a-python-url-shortener-with-fastapi/). But not followed in the slightest.
 
+## Environment Variables
+
+To run this project outside of Docker, you will need to add the following environment variables to your .env file. These are the defaults when running in Docker.
+
+```
+DBHOST: str = "redis"
+DBPORT: int = 6379
+DBUSER: str | None = None
+DBPASS: str | None = None
+KEYLEN: int = 8
+```
+
 ## Deployment
 
 To deploy ShortURL using Docker run
@@ -33,7 +45,7 @@ Go to the project directory
 Install dependencies
 
 ```bash
-  python3 -m pip install .
+  python3 install .
 ```
 
 Start the server
