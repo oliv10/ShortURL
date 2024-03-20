@@ -1,52 +1,45 @@
-import pytest, json
+from typing import Any
+import pytest
 from fastapi.testclient import TestClient
 from shorturl.app import app
+from shorturl.database import Database
+from unittest.mock import patch
+from fakeredis import FakeRedis
 
 @pytest.fixture
-def client():
+def client() -> TestClient:
     return TestClient(app)
 
-# def test_get_index(client):
-#     response = client.get("/")
-#     assert response.status_code == 200
-#     assert response.json() == ["one", 2, "three"]
+@pytest.fixture
+def DB():
+    return Database(redis=FakeRedis(decode_responses=True))
 
-def test_get_short_url(client: TestClient):
-    good_body = """
-            {
-            "url": "https://example.com/",
-            "ex": 10
-            }
-            """
-    response = client.post("/api/v1/create_key", data=good_body)
-    dict_response = json.loads(response.content)
-    assert dict_response["url"] == "https://example.com/"
-    assert dict_response["ex"] == 10
-    assert response.status_code == 201
+@pytest.fixture(params=[
+    {
+        "url": "https://example.com/",
+        "ex": 10
+    },
+    {
+        "url": "example",
+        "ex": "ten"
+    }
+])
+def input(request: pytest.FixtureRequest):
+    return request.param
 
-    bad_body = """
-            {
-            "url": "example",
-            "ex": "ten"
-            }
-            """
-    response = client.post("/api/v1/create_key", data=bad_body)
-    dict_response = json.loads(response.content)
-    assert dict_response["detail"][0]["ctx"]["error"] == "relative URL without a base"
-    assert dict_response["detail"][1]["msg"] == "Input should be a valid integer, unable to parse string as an integer"
-    assert response.status_code == 422
-
-# def test_redirect_url(client):
-#     good_body = """
-#             {
-#             "url": "https://example.com/",
-#             "ex": 100
-#             }
-#             """
-#     response = client.post("/", data=good_body)
-#     dict_response = json.loads(response.content)
-#     key = f"/{dict_response["key"]}"
-#     # assert key == f"{key}"
-#     response = client.get(key, follow_redirects=True)
-#     assert response.content == ""
-#     assert response.status_code == 307
+def test_create_short_url(client: TestClient, input: Any, DB: Database):
+    with patch("shorturl.app.database", DB):
+        response = client.post("/api/v1/create_key", json=input)
+    
+    if isinstance(input["ex"], int):
+        assert response.status_code == 201
+        data = response.json()
+        assert data["url"] == input["url"]
+        assert data["ex"] == input["ex"]
+        assert "key" in data
+    else:
+        assert response.status_code == 422
+        data = response.json()
+        assert len(data["detail"]) == 2
+        assert data["detail"][0]["msg"] == "Input should be a valid URL, relative URL without a base"
+        assert data["detail"][1]["msg"] == "Input should be a valid integer, unable to parse string as an integer"
