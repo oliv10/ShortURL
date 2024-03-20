@@ -1,5 +1,5 @@
 import pytest
-from shorturl.settings import Settings  # Import your Settings class
+from shorturl.settings import Settings
 
 def test_default_values():
     settings = Settings()
