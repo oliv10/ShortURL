@@ -58,7 +58,7 @@ Start the server
 
 ## Running Tests
 
-To run tests, run the following command in the shorturl directory
+To run tests, run the following commands in the shorturl directory
 
 ```bash
   python3 install .[development]
