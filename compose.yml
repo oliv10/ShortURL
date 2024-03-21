@@ -1,6 +1,7 @@
 version: "3.8"
 services:
   shorturl:
+    image: ghcr.io/oliv10/shorturl:latest
     build: .
     ports:
       - 80:80
