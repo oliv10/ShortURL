@@ -8,7 +8,7 @@ Inspired by [this](https://realpython.com/build-a-python-url-shortener-with-fast
 
 ## Environment Variables
 
-To run this project outside of Docker, you will need to add the following environment variables to your .env file. These are the defaults when running in Docker.
+To run this project outside of Docker, you will need to add the following environment variables to your .env file. These are the defaults when running in Docker and the developemnt environment (assuming you are using vscode devcontainers).
 
 ```
 DBHOST: str = "redis"
@@ -17,6 +17,7 @@ DBUSER: str | None = None
 DBPASS: str | None = None
 KEYLEN: int = 8
 ```
+**_Note_**: This is not proper formatting for a .env file, this is just to show the datatypes the program is expecting, what the default values are, and which ones are optional (marked as _None_).
 
 ## Deployment
 
