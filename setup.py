@@ -12,7 +12,7 @@ setup(
         "uvicorn~=0.29.0",
         "fastapi~=0.110.0",
         "redis~=5.0.2",
-        "pydantic_settings~=2.2.1"
+        "pydantic_settings>=2.2.1,<2.4.0"
     ],
     extras_require={
         "development": [
