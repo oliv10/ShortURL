@@ -11,7 +11,7 @@ setup(
     install_requires=[
         "uvicorn~=0.29.0",
         "fastapi~=0.110.0",
-        "redis~=5.0.2",
+        "redis~=5.2.0",
         "pydantic_settings~=2.2.1"
     ],
     extras_require={
