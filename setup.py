@@ -10,7 +10,7 @@ setup(
     packages=find_packages(exclude=["tests", ".github"]),
     install_requires=[
         "uvicorn~=0.29.0",
-        "fastapi~=0.110.0",
+        "fastapi~=0.141.1",
         "redis~=5.0.2",
         "pydantic_settings~=2.2.1"
     ],
